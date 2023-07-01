@@ -1,4 +1,4 @@
-package model.entity;
+package com.NikolaTabas94rn.cinema.model.entity;
 
 import lombok.*;
 
