@@ -1,7 +1,6 @@
-package model.entity;
+package com.NikolaTabas94rn.cinema.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
