@@ -1,5 +1,8 @@
 package com.NikolaTabas94rn.cinema.service;
 
+import com.NikolaTabas94rn.cinema.exceptions.ErrorInfo;
+import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
+import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.user.UserDto;
 import com.NikolaTabas94rn.cinema.model.api.user.UserSaveDto;
 import com.NikolaTabas94rn.cinema.model.entity.UserEntity;
@@ -25,16 +28,16 @@ public class UsersService {
                 .collect(Collectors.toList());
     }
 
-    public UserDto getOne(int id){
-        UserEntity userEntity=usersRepository.findById(id).orElse(null);
+    public UserDto getOne(int id)throws ResourceNotFoundException {
+        UserEntity userEntity=usersRepository.findById(id).orElseThrow(()->new ResourceNotFoundException(ErrorInfo.ResourceType.USER));
 
         return userMapper.toDto(userEntity);
 
     }
 
-    public UserDto save(UserSaveDto user){
+    public UserDto save(UserSaveDto user) throws UniqueViolationException {
         if(usersRepository.findByEmail(user.getEmail()).isPresent()){
-            throw new RuntimeException();
+            throw new UniqueViolationException(ErrorInfo.ResourceType.USER, "'email' already exists");
         }
 
         UserEntity userEntity=userMapper.toEntity(user);
@@ -43,12 +46,12 @@ public class UsersService {
         return userMapper.toDto(userEntity);
     }
 
-    public UserDto update(int id, UserSaveDto updatedUser){
-        UserEntity user=usersRepository.findById(id).orElse(null);
+    public UserDto update(int id, UserSaveDto updatedUser)throws UniqueViolationException,ResourceNotFoundException{
+        UserEntity user=usersRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ErrorInfo.ResourceType.USER));
 
         if(!user.getEmail().equals(updatedUser.getEmail())
         && usersRepository.findByEmail(updatedUser.getEmail()).isPresent()){
-            throw new RuntimeException();
+            throw new UniqueViolationException(ErrorInfo.ResourceType.USER, "'email' already exists");
         }
 
         UserEntity updatedUserEntity=userMapper.toEntity(updatedUser);
@@ -60,9 +63,9 @@ public class UsersService {
 
         return userMapper.toDto(updatedUserEntity);
     }
-    public void remove(int id){
+    public void remove(int id) throws ResourceNotFoundException{
         if(!usersRepository.existsById(id)){
-            throw new RuntimeException();
+            throw new ResourceNotFoundException(ErrorInfo.ResourceType.USER);
         }
 
         usersRepository.deleteById(id);

@@ -1,5 +1,7 @@
 package com.NikolaTabas94rn.cinema.controller;
 
+import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
+import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.user.UserDto;
 import com.NikolaTabas94rn.cinema.model.api.user.UserSaveDto;
 import org.springframework.http.HttpStatus;
@@ -15,15 +17,15 @@ public interface UsersController {
     List<UserDto> getUsers();
 
     @GetMapping("/{id}")
-    UserDto getUser(@PathVariable int id);
+    UserDto getUser(@PathVariable int id) throws ResourceNotFoundException;
 
     @PostMapping()
-    UserDto saveUser(@RequestBody UserSaveDto user);
+    UserDto saveUser(@RequestBody UserSaveDto user) throws UniqueViolationException;
 
     @PutMapping("/{id}")
-    UserDto updateUser(@PathVariable int id, @RequestBody UserSaveDto updatedUser);
+    UserDto updateUser(@PathVariable int id, @RequestBody UserSaveDto updatedUser)throws ResourceNotFoundException, UniqueViolationException;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void removeUser(@PathVariable int id);
+    void removeUser(@PathVariable int id)throws ResourceNotFoundException;
 }
