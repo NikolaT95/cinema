@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable=false, unique=true)

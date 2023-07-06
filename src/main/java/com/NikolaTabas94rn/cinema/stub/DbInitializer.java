@@ -69,13 +69,13 @@ public class DbInitializer implements CommandLineRunner {
         ScreeningEntity screening1=ScreeningEntity.builder()
                 .movie(movie1)
                 .auditorium(auditorium1)
-                .screening_start(Timestamp.valueOf("2023-06-29 12:34:56"))
+                .screeningStart(Timestamp.valueOf("2023-06-29 12:34:56"))
                 .build();
 
         ScreeningEntity screening2=ScreeningEntity.builder()
                 .movie(movie2)
                 .auditorium(auditorium1)
-                .screening_start(Timestamp.valueOf("2023-07-09 12:34:56"))
+                .screeningStart(Timestamp.valueOf("2023-07-09 12:34:56"))
                 .build();
 
         screeningsRepository.saveAll(Arrays.asList(screening1,screening2));

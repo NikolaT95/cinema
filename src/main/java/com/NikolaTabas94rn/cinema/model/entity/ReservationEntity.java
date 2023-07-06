@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne

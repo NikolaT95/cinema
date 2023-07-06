@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ScreeningEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
@@ -25,7 +25,7 @@ public class ScreeningEntity {
     @JoinColumn(name="auditorium_id")
     private AuditoriumEntity auditorium;
 
-    private Timestamp screening_start;
+    private Timestamp screeningStart;
 
     @OneToMany(mappedBy = "screening")
     @Singular

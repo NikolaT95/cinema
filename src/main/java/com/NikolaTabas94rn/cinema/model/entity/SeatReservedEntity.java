@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class SeatReservedEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne

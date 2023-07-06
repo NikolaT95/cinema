@@ -2,6 +2,7 @@ package com.NikolaTabas94rn.cinema.model.api.screening;
 
 import com.NikolaTabas94rn.cinema.model.entity.AuditoriumEntity;
 import com.NikolaTabas94rn.cinema.model.entity.MovieEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Value;
 
@@ -16,8 +17,7 @@ public class ScreeningDto {
 
     int movie_id;
 
-
     int auditorium_id;
-
-    Timestamp screening_start;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "CET")
+    Timestamp screeningStart;
 }
