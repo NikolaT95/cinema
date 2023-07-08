@@ -3,6 +3,9 @@ package com.NikolaTabas94rn.cinema.stub;
 import com.NikolaTabas94rn.cinema.model.entity.*;
 import com.NikolaTabas94rn.cinema.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -13,6 +16,7 @@ import java.util.Arrays;
 @Component
 @Profile("dev")
 @RequiredArgsConstructor
+@Slf4j
 public class DbInitializer implements CommandLineRunner {
 
     private final UsersRepository usersRepository;
@@ -22,6 +26,7 @@ public class DbInitializer implements CommandLineRunner {
     private final ScreeningsRepository screeningsRepository;
     private final SeatsRepository seatsRepository;
     private final SeatsReservedRepository seatsReservedRepository;
+
     @Override
     public void run(String... args) throws Exception {
         if(!Arrays.asList(args).contains("--init-db")) {
@@ -37,6 +42,7 @@ public class DbInitializer implements CommandLineRunner {
                 .build();
 
         usersRepository.saveAll(Arrays.asList(user1, user2));
+        log.info("Initialized users");
 
         MovieEntity movie1=MovieEntity.builder()
                 .title("film1")
@@ -53,7 +59,7 @@ public class DbInitializer implements CommandLineRunner {
                 .build();
 
         moviesRepository.saveAll(Arrays.asList(movie1,movie2));
-
+        log.info("Initialized movies");
         AuditoriumEntity auditorium1=AuditoriumEntity.builder()
                 .name("mala sala")
                 .seats_no(10)
@@ -65,7 +71,7 @@ public class DbInitializer implements CommandLineRunner {
                 .build();
 
         auditoriumsRepository.saveAll(Arrays.asList(auditorium1,auditorium2));
-
+        log.info("Initialized auditoriums");
         ScreeningEntity screening1=ScreeningEntity.builder()
                 .movie(movie1)
                 .auditorium(auditorium1)
@@ -79,7 +85,7 @@ public class DbInitializer implements CommandLineRunner {
                 .build();
 
         screeningsRepository.saveAll(Arrays.asList(screening1,screening2));
-
+        log.info("Initialized screenings");
         SeatEntity seat1=SeatEntity.builder()
                 .row(1)
                 .number(1)
@@ -103,6 +109,7 @@ public class DbInitializer implements CommandLineRunner {
                 .build();
 
         seatsRepository.saveAll(Arrays.asList(seat1,seat2,seat3,seat4));
+        log.info("Initialized seats");
 
         ReservationEntity reservation1=ReservationEntity.builder()
                 .screening(screening1)
@@ -112,6 +119,7 @@ public class DbInitializer implements CommandLineRunner {
                 .build();
 
         reservationsRepository.saveAll(Arrays.asList(reservation1));
+        log.info("Initialized reservations");
 
         SeatReservedEntity seatReserved1=SeatReservedEntity.builder()
                 .reservation(reservation1)
@@ -126,6 +134,7 @@ public class DbInitializer implements CommandLineRunner {
                 .build();
 
         seatsReservedRepository.saveAll(Arrays.asList(seatReserved1,seatReserved2));
+        log.info("Initialized reserved seats");
     }
 
 }
