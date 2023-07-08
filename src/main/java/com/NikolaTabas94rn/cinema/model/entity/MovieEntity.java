@@ -20,9 +20,9 @@ public class MovieEntity {
     private String  title;
 
     private String director;
-
+    @Column(nullable = false)
     private String genre;
-
+    @Column(length = 1024)
     private String description;
 
     private int duration_min;

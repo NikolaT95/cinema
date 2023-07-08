@@ -23,9 +23,9 @@ public class ReservationEntity {
     @ManyToOne
     @JoinColumn(name="user_id")
     private UserEntity userReserved;
-
+    @Column(nullable = false)
     private Boolean paid;
-
+    @Column(nullable = false)
     private Boolean active;
 
     @OneToMany(mappedBy = "reservation")

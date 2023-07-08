@@ -16,9 +16,9 @@ public class SeatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Column(nullable = false)
     private int row;
-
+    @Column(nullable = false)
     private int number;
 
     @ManyToOne

@@ -24,7 +24,7 @@ public class ScreeningEntity {
     @ManyToOne
     @JoinColumn(name="auditorium_id")
     private AuditoriumEntity auditorium;
-
+    @Column(nullable = false)
     private Timestamp screeningStart;
 
     @OneToMany(mappedBy = "screening")
