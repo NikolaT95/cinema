@@ -22,7 +22,7 @@ public class UserEntity {
     @Column(nullable=false)
     private String password;
 
-    @OneToMany(mappedBy = "user_reserved")
+    @OneToMany(mappedBy = "userReserved")
     @Singular
     private List<ReservationEntity> reservations;
 }

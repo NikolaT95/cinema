@@ -11,7 +11,7 @@ import org.mapstruct.Mappings;
 public interface ReservationMapper {
     @Mappings({
             @Mapping(source = "screening.id", target ="screening_id"),
-            @Mapping(source = "user_reserved.id",target = "user_reserved_id")
+            @Mapping(source = "userReserved.id",target = "user_reserved_id")
     })
     ReservationDto toDto(ReservationEntity reservationEntity);
 

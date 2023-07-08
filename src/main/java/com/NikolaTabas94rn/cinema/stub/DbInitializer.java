@@ -106,7 +106,7 @@ public class DbInitializer implements CommandLineRunner {
 
         ReservationEntity reservation1=ReservationEntity.builder()
                 .screening(screening1)
-                .user_reserved(user1)
+                .userReserved(user1)
                 .paid(true)
                 .active(true)
                 .build();

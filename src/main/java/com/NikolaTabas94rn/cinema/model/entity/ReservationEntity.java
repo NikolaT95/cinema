@@ -22,7 +22,7 @@ public class ReservationEntity {
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private UserEntity user_reserved;
+    private UserEntity userReserved;
 
     private Boolean paid;
 
