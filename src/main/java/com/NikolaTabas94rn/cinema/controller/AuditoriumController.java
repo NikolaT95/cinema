@@ -4,7 +4,10 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumDto;
 import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumSearchOption;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +18,7 @@ public interface AuditoriumController {
 
     @GetMapping()
     @Operation(description = "Get all auditoriums", summary = "Get all auditoriums")
-    List<AuditoriumDto> getAllAuditoriums();
+    Page<AuditoriumDto> getAllAuditoriums(@ParameterObject AuditoriumSearchOption auditoriumSearchOption);
 
     @GetMapping("/{id}")
     @Operation(description = "Get one auditorium", summary = "Get one auditorium")

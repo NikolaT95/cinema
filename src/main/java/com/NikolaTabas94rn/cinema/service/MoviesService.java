@@ -5,10 +5,13 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.movie.MovieDto;
 import com.NikolaTabas94rn.cinema.model.api.movie.MovieSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.movie.MovieSearchOption;
 import com.NikolaTabas94rn.cinema.model.entity.MovieEntity;
 import com.NikolaTabas94rn.cinema.model.mapper.MovieMapper;
 import com.NikolaTabas94rn.cinema.repository.MoviesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +23,18 @@ public class MoviesService {
     private final MoviesRepository moviesRepository;
     private final MovieMapper movieMapper;
 
-    public List<MovieDto> getAll(){
-        return moviesRepository.findAllByOrderByTitleAsc()
-                .stream()
-                .map(movieMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<MovieDto> getAll(MovieSearchOption movieSearchOption){
+        int page = 1;
+        if(movieSearchOption.getPage() != null && movieSearchOption.getPage() > 0) {
+            page = movieSearchOption.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(movieSearchOption.getPageSize() != null && movieSearchOption.getPageSize() > 0) {
+            pageSize = movieSearchOption.getPageSize();
+        }
+        return moviesRepository.findAllByOrderByTitleAsc(PageRequest.of(page,pageSize))
+                .map(movieMapper::toDto);
     }
 
     public MovieDto getOne(int id)throws ResourceNotFoundException {
@@ -67,11 +77,18 @@ public class MoviesService {
         moviesRepository.deleteById(id);
     }
 
-    public List<MovieDto> findByGenre(String genre){
-        return moviesRepository.findByGenre(genre)
-                .stream()
-                .map(movieMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<MovieDto> findByGenre(String genre, MovieSearchOption movieSearchOption){
+        int page = 1;
+        if(movieSearchOption.getPage() != null && movieSearchOption.getPage() > 0) {
+            page = movieSearchOption.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(movieSearchOption.getPageSize() != null && movieSearchOption.getPageSize() > 0) {
+            pageSize = movieSearchOption.getPageSize();
+        }
+        return moviesRepository.findByGenre(genre,PageRequest.of(page,pageSize))
+                .map(movieMapper::toDto);
     }
 
     public int getAverageDuration() {

@@ -5,12 +5,15 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatDto;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.seat.SeatSearchOption;
 import com.NikolaTabas94rn.cinema.model.entity.AuditoriumEntity;
 import com.NikolaTabas94rn.cinema.model.entity.SeatEntity;
 import com.NikolaTabas94rn.cinema.model.mapper.SeatMapper;
 import com.NikolaTabas94rn.cinema.repository.AuditoriumsRepository;
 import com.NikolaTabas94rn.cinema.repository.SeatsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,11 +28,18 @@ public class SeatService {
 
     private final AuditoriumsRepository auditoriumsRepository;
 
-    public List<SeatDto> getAll(){
-        return seatsRepository.findAll()
-                .stream()
-                .map(seatMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<SeatDto> getAll(SeatSearchOption seatSearchOption){
+        int page = 1;
+        if(seatSearchOption.getPage() != null && seatSearchOption.getPage() > 0) {
+            page = seatSearchOption.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(seatSearchOption.getPageSize() != null && seatSearchOption.getPageSize() > 0) {
+            pageSize = seatSearchOption.getPageSize();
+        }
+        return seatsRepository.findAll(PageRequest.of(page,pageSize))
+                .map(seatMapper::toDto);
     }
 
     public SeatDto getOne(int id)throws ResourceNotFoundException{

@@ -5,9 +5,11 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.user.UserDto;
 import com.NikolaTabas94rn.cinema.model.api.user.UserSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.user.UserSearchOption;
 import com.NikolaTabas94rn.cinema.service.UsersService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class UsersControllerImpl implements UsersController {
     private final UsersService usersService;
 
     @Override
-    public List<UserDto> getUsers() {
-        return usersService.getAll();
+    public Page<UserDto> getUsers(UserSearchOption userSearchOption) {
+        return usersService.getAll(userSearchOption);
     }
 
     @Override

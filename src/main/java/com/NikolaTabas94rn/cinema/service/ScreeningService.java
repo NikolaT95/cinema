@@ -6,6 +6,7 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.screening.ScreeningDto;
 import com.NikolaTabas94rn.cinema.model.api.screening.ScreeningSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.screening.ScreeningSearchOption;
 import com.NikolaTabas94rn.cinema.model.entity.AuditoriumEntity;
 import com.NikolaTabas94rn.cinema.model.entity.MovieEntity;
 import com.NikolaTabas94rn.cinema.model.entity.ScreeningEntity;
@@ -14,11 +15,12 @@ import com.NikolaTabas94rn.cinema.repository.AuditoriumsRepository;
 import com.NikolaTabas94rn.cinema.repository.MoviesRepository;
 import com.NikolaTabas94rn.cinema.repository.ScreeningsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,11 +31,18 @@ public class ScreeningService {
     private final MoviesRepository moviesRepository;
     private final AuditoriumsRepository auditoriumsRepository;
 
-    public List<ScreeningDto> getALl(){
-        return screeningsRepository.findAllByOrderByScreeningStart()
-                .stream()
-                .map(screeningMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<ScreeningDto> getALl(ScreeningSearchOption screeningSearchOption){
+        int page = 1;
+        if(screeningSearchOption.getPage() != null && screeningSearchOption.getPage() > 0) {
+            page = screeningSearchOption.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(screeningSearchOption.getPageSize() != null && screeningSearchOption.getPageSize() > 0) {
+            pageSize = screeningSearchOption.getPageSize();
+        }
+        return screeningsRepository.findAllByOrderByScreeningStart(PageRequest.of(page,pageSize))
+                .map(screeningMapper::toDto);
     }
 
     public ScreeningDto getOne(int id)throws ResourceNotFoundException{
@@ -95,18 +104,32 @@ public class ScreeningService {
         }
         screeningsRepository.deleteById(id);
     }
-    public List<ScreeningDto> getByMovie(int movieId) throws ResourceNotFoundException {
+    public Page<ScreeningDto> getByMovie(int movieId, ScreeningSearchOption screeningSearchOption) throws ResourceNotFoundException {
+        int page = 1;
+        if(screeningSearchOption.getPage() != null && screeningSearchOption.getPage() > 0) {
+            page = screeningSearchOption.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(screeningSearchOption.getPageSize() != null && screeningSearchOption.getPageSize() > 0) {
+            pageSize = screeningSearchOption.getPageSize();
+        }
         MovieEntity movie=getMovie(movieId);
-        return movie.getScreenings()
-                .stream()
-                .map(screeningMapper::toDto)
-                .collect(Collectors.toList());
+        return screeningsRepository.findAllByMovie(movie,PageRequest.of(page,pageSize))
+                .map(screeningMapper::toDto);
     }
 
-    public List<ScreeningDto> getByDateTimeRange(Timestamp startTime, Timestamp endTime) {
-        List<ScreeningEntity> screenings = screeningsRepository.findByScreeningStartBetween(startTime, endTime);
-        return screenings.stream()
-                .map(screeningMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<ScreeningDto> getByDateTimeRange(Timestamp startTime, Timestamp endTime, ScreeningSearchOption screeningSearchOption) {
+        int page = 1;
+        if(screeningSearchOption.getPage() != null && screeningSearchOption.getPage() > 0) {
+            page = screeningSearchOption.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(screeningSearchOption.getPageSize() != null && screeningSearchOption.getPageSize() > 0) {
+            pageSize = screeningSearchOption.getPageSize();
+        }
+        return screeningsRepository.findByScreeningStartBetween(startTime, endTime,PageRequest.of(page,pageSize))
+                .map(screeningMapper::toDto);
     }
 }

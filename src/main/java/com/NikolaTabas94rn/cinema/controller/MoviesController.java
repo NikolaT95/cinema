@@ -4,7 +4,10 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.movie.MovieDto;
 import com.NikolaTabas94rn.cinema.model.api.movie.MovieSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.movie.MovieSearchOption;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +18,7 @@ import java.util.List;
 public interface MoviesController {
     @GetMapping
     @Operation(description = "Get all movies", summary = "Get all movies")
-    List<MovieDto> getMovies();
+    Page<MovieDto> getMovies(@ParameterObject MovieSearchOption movieSearchOption);
 
     @GetMapping("/{id}")
     @Operation(description = "Get one movie", summary = "Get one movie")
@@ -36,7 +39,7 @@ public interface MoviesController {
 
     @GetMapping("/genre/{genre}")
     @Operation(description = "Get movies by genre", summary = "Get movies by genre")
-    List<MovieDto> getMoviesByGenre(@PathVariable String genre)throws ResourceNotFoundException;
+    Page<MovieDto> getMoviesByGenre(@PathVariable String genre,@ParameterObject MovieSearchOption movieSearchOption)throws ResourceNotFoundException;
 
     @GetMapping("/avg")
     int getAverageMoviesDuration();

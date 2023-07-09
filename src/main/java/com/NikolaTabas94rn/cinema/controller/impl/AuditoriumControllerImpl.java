@@ -5,9 +5,11 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumDto;
 import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumSearchOption;
 import com.NikolaTabas94rn.cinema.service.AuditoriumService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,8 +19,8 @@ import java.util.List;
 public class AuditoriumControllerImpl implements AuditoriumController {
     private final AuditoriumService auditoriumService;
     @Override
-    public List<AuditoriumDto> getAllAuditoriums() {
-        return auditoriumService.getAll();
+    public Page<AuditoriumDto> getAllAuditoriums(AuditoriumSearchOption auditoriumSearchOption) {
+        return auditoriumService.getAll(auditoriumSearchOption);
     }
 
     @Override

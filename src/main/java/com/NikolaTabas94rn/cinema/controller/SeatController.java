@@ -6,7 +6,10 @@ import com.NikolaTabas94rn.cinema.model.api.movie.MovieDto;
 import com.NikolaTabas94rn.cinema.model.api.movie.MovieSaveDto;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatDto;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.seat.SeatSearchOption;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +20,7 @@ import java.util.List;
 public interface SeatController {
     @GetMapping
     @Operation(description = "Get all seats", summary = "Get all seats")
-    List<SeatDto> getSeats();
+    Page<SeatDto> getSeats(@ParameterObject SeatSearchOption seatSearchOption);
 
     @GetMapping("/{id}")
     @Operation(description = "Get one seat", summary = "Get one seat")

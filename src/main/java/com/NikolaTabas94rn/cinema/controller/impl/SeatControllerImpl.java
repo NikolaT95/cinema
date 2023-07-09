@@ -5,9 +5,11 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatDto;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.seat.SeatSearchOption;
 import com.NikolaTabas94rn.cinema.service.SeatService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,8 +19,8 @@ import java.util.List;
 public class SeatControllerImpl implements SeatController {
     private final SeatService seatService;
     @Override
-    public List<SeatDto> getSeats() {
-        return seatService.getAll();
+    public Page<SeatDto> getSeats(SeatSearchOption seatSearchOption) {
+        return seatService.getAll(seatSearchOption);
     }
 
     @Override

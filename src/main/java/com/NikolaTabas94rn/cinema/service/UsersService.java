@@ -5,10 +5,13 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.user.UserDto;
 import com.NikolaTabas94rn.cinema.model.api.user.UserSaveDto;
+import com.NikolaTabas94rn.cinema.model.api.user.UserSearchOption;
 import com.NikolaTabas94rn.cinema.model.entity.UserEntity;
 import com.NikolaTabas94rn.cinema.model.mapper.UserMapper;
 import com.NikolaTabas94rn.cinema.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,11 +24,18 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final UserMapper userMapper;
 
-    public List<UserDto> getAll(){
-        return usersRepository.findAll()
-                .stream()
-                .map(userMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<UserDto> getAll(UserSearchOption userSearchOption){
+        int page = 1;
+        if(userSearchOption.getPage() != null && userSearchOption.getPage() > 0) {
+            page = userSearchOption.getPage() - 1;
+        }
+
+        int pageSize = 10;
+        if(userSearchOption.getPageSize() != null && userSearchOption.getPageSize() > 0) {
+            pageSize = userSearchOption.getPageSize();
+        }
+        return usersRepository.findAll(PageRequest.of(page, pageSize))
+                .map(userMapper::toDto);
     }
 
     public UserDto getOne(int id)throws ResourceNotFoundException {
