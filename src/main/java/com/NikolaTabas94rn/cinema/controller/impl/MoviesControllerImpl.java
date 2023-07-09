@@ -6,11 +6,13 @@ import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.movie.MovieDto;
 import com.NikolaTabas94rn.cinema.model.api.movie.MovieSaveDto;
 import com.NikolaTabas94rn.cinema.service.MoviesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
+@Tag(name = "Movies")
 @RequiredArgsConstructor
 public class MoviesControllerImpl implements MoviesController {
     private final MoviesService moviesService;

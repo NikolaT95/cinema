@@ -7,12 +7,14 @@ import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.screening.ScreeningDto;
 import com.NikolaTabas94rn.cinema.model.api.screening.ScreeningSaveDto;
 import com.NikolaTabas94rn.cinema.service.ScreeningService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.util.List;
 @RestController
+@Tag(name = "Screenings")
 @RequiredArgsConstructor
 public class ScreeningsControllerImpl implements ScreeningsController {
     private final ScreeningService screeningService;

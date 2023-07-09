@@ -15,6 +15,7 @@
 	<description>projekat iz veb programiranja</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<org.springdoc.version>1.6.6</org.springdoc.version>
 		<org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
 		<org.projectlombok.version>1.18.22</org.projectlombok.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
@@ -49,6 +50,11 @@
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${org.springdoc.version}</version>
 		</dependency>
 	</dependencies>
 

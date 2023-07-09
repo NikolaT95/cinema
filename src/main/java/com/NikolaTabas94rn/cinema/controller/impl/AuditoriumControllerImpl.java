@@ -6,11 +6,13 @@ import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumDto;
 import com.NikolaTabas94rn.cinema.model.api.auditorium.AuditoriumSaveDto;
 import com.NikolaTabas94rn.cinema.service.AuditoriumService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
+@Tag(name = "Auditoriums")
 @RequiredArgsConstructor
 public class AuditoriumControllerImpl implements AuditoriumController {
     private final AuditoriumService auditoriumService;

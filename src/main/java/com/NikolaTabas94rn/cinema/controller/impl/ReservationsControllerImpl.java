@@ -6,12 +6,14 @@ import com.NikolaTabas94rn.cinema.exceptions.ResourceNotFoundException;
 import com.NikolaTabas94rn.cinema.model.api.reservation.ReservationDto;
 import com.NikolaTabas94rn.cinema.model.api.reservation.ReservationSaveDto;
 import com.NikolaTabas94rn.cinema.service.ReservationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@Tag(name = "Reservations")
 @RequiredArgsConstructor
 public class ReservationsControllerImpl implements ReservationsController {
     private final ReservationService reservationService;

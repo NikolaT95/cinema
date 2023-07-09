@@ -69,7 +69,6 @@ public class ReservationService {
 
 
 
-        List<SeatReservedEntity> reservedSeats=new ArrayList<>();
         for(SeatReservedDto seatReservedDto: reservationSaveDto.getReservedSeats()){
             SeatReservedEntity seatReservedEntity=new SeatReservedEntity();
             SeatEntity seat=getSeat(seatReservedDto.getSeat_id());
@@ -77,7 +76,6 @@ public class ReservationService {
             seatReservedEntity.setReservation(reservationEntity);
             seatReservedEntity.setScreening(screening);
 
-            reservedSeats.add(seatReservedEntity);
             seatsReservedRepository.save(seatReservedEntity);
         }
 
@@ -85,7 +83,7 @@ public class ReservationService {
         return reservationMapper.toDto(reservationEntity);
     }
 
-    public void remove(int userId,int screeningId) throws ResourceNotFoundException {
+    public void remove(int screeningId, int userId) throws ResourceNotFoundException {
         UserEntity user=getUser(userId);
         ScreeningEntity screening=getScreening(screeningId);
 

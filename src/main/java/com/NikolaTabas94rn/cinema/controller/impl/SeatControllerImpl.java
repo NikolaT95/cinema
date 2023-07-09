@@ -6,11 +6,13 @@ import com.NikolaTabas94rn.cinema.exceptions.UniqueViolationException;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatDto;
 import com.NikolaTabas94rn.cinema.model.api.seat.SeatSaveDto;
 import com.NikolaTabas94rn.cinema.service.SeatService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
+@Tag(name = "Seats")
 @RequiredArgsConstructor
 public class SeatControllerImpl implements SeatController {
     private final SeatService seatService;
