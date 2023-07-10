@@ -14,6 +14,7 @@ import com.NikolaTabas94rn.cinema.model.mapper.ScreeningMapper;
 import com.NikolaTabas94rn.cinema.repository.AuditoriumsRepository;
 import com.NikolaTabas94rn.cinema.repository.MoviesRepository;
 import com.NikolaTabas94rn.cinema.repository.ScreeningsRepository;
+import com.NikolaTabas94rn.cinema.repository.specification.ScreeningSearchSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +33,7 @@ public class ScreeningService {
     private final AuditoriumsRepository auditoriumsRepository;
 
     public Page<ScreeningDto> getALl(ScreeningSearchOption screeningSearchOption){
-        int page = 1;
+        int page = 0;
         if(screeningSearchOption.getPage() != null && screeningSearchOption.getPage() > 0) {
             page = screeningSearchOption.getPage() - 1;
         }
@@ -41,7 +42,7 @@ public class ScreeningService {
         if(screeningSearchOption.getPageSize() != null && screeningSearchOption.getPageSize() > 0) {
             pageSize = screeningSearchOption.getPageSize();
         }
-        return screeningsRepository.findAllByOrderByScreeningStart(PageRequest.of(page,pageSize))
+        return screeningsRepository.findAll(new ScreeningSearchSpecification(screeningSearchOption),PageRequest.of(page,pageSize))
                 .map(screeningMapper::toDto);
     }
 
@@ -84,7 +85,7 @@ public class ScreeningService {
         AuditoriumEntity auditorium=getAuditorium(updatedScreening.getAuditorium_id());
 
          if(!screening.getScreeningStart().equals(updatedScreening.getScreeningStart())
-                && !screening.getAuditorium().equals(updatedScreening.getAuditorium_id()) && screeningsRepository.findByScreeningStartAndAuditorium(updatedScreening.getScreeningStart(), auditorium).isPresent()){
+                && !screening.getAuditorium().equals(auditorium) && screeningsRepository.findByScreeningStartAndAuditorium(updatedScreening.getScreeningStart(), auditorium).isPresent()){
             throw new UniqueViolationException(ErrorInfo.ResourceType.SCREENING, "'screening' already exists");
         }
 
@@ -105,7 +106,7 @@ public class ScreeningService {
         screeningsRepository.deleteById(id);
     }
     public Page<ScreeningDto> getByMovie(int movieId, ScreeningSearchOption screeningSearchOption) throws ResourceNotFoundException {
-        int page = 1;
+        int page = 0;
         if(screeningSearchOption.getPage() != null && screeningSearchOption.getPage() > 0) {
             page = screeningSearchOption.getPage() - 1;
         }
@@ -120,7 +121,7 @@ public class ScreeningService {
     }
 
     public Page<ScreeningDto> getByDateTimeRange(Timestamp startTime, Timestamp endTime, ScreeningSearchOption screeningSearchOption) {
-        int page = 1;
+        int page = 0;
         if(screeningSearchOption.getPage() != null && screeningSearchOption.getPage() > 0) {
             page = screeningSearchOption.getPage() - 1;
         }

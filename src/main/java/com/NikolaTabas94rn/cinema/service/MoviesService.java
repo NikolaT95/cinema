@@ -9,6 +9,7 @@ import com.NikolaTabas94rn.cinema.model.api.movie.MovieSearchOption;
 import com.NikolaTabas94rn.cinema.model.entity.MovieEntity;
 import com.NikolaTabas94rn.cinema.model.mapper.MovieMapper;
 import com.NikolaTabas94rn.cinema.repository.MoviesRepository;
+import com.NikolaTabas94rn.cinema.repository.specification.MoviesSearchSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +25,7 @@ public class MoviesService {
     private final MovieMapper movieMapper;
 
     public Page<MovieDto> getAll(MovieSearchOption movieSearchOption){
-        int page = 1;
+        int page = 0;
         if(movieSearchOption.getPage() != null && movieSearchOption.getPage() > 0) {
             page = movieSearchOption.getPage() - 1;
         }
@@ -33,7 +34,7 @@ public class MoviesService {
         if(movieSearchOption.getPageSize() != null && movieSearchOption.getPageSize() > 0) {
             pageSize = movieSearchOption.getPageSize();
         }
-        return moviesRepository.findAllByOrderByTitleAsc(PageRequest.of(page,pageSize))
+        return moviesRepository.findAll(new MoviesSearchSpecification(movieSearchOption),PageRequest.of(page,pageSize))
                 .map(movieMapper::toDto);
     }
 
@@ -78,7 +79,7 @@ public class MoviesService {
     }
 
     public Page<MovieDto> findByGenre(String genre, MovieSearchOption movieSearchOption){
-        int page = 1;
+        int page = 0;
         if(movieSearchOption.getPage() != null && movieSearchOption.getPage() > 0) {
             page = movieSearchOption.getPage() - 1;
         }

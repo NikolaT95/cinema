@@ -29,7 +29,7 @@ public class SeatService {
     private final AuditoriumsRepository auditoriumsRepository;
 
     public Page<SeatDto> getAll(SeatSearchOption seatSearchOption){
-        int page = 1;
+        int page = 0;
         if(seatSearchOption.getPage() != null && seatSearchOption.getPage() > 0) {
             page = seatSearchOption.getPage() - 1;
         }

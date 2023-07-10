@@ -25,7 +25,7 @@ public class UsersService {
     private final UserMapper userMapper;
 
     public Page<UserDto> getAll(UserSearchOption userSearchOption){
-        int page = 1;
+        int page = 0;
         if(userSearchOption.getPage() != null && userSearchOption.getPage() > 0) {
             page = userSearchOption.getPage() - 1;
         }

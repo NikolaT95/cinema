@@ -25,7 +25,7 @@ public class AuditoriumService {
     private final AuditoriumMapper auditoriumMapper;
 
     public Page<AuditoriumDto> getAll(AuditoriumSearchOption auditoriumSearchOption){
-        int page = 1;
+        int page = 0;
         if(auditoriumSearchOption.getPage() != null && auditoriumSearchOption.getPage() > 0) {
             page = auditoriumSearchOption.getPage() - 1;
         }
