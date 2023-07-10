@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,7 +27,7 @@ public interface ReservationsController {
 
     @PostMapping("/screenings/{screeningId}/reservation/{userId}")
     @Operation(description = "Create user's reservation for screening", summary = "Create user's reservation for screening")
-    ReservationDto saveReservation(@PathVariable int screeningId, @PathVariable int userId, @RequestBody ReservationSaveDto reservationSaveDto) throws BadRequestException, ResourceNotFoundException;
+    ReservationDto saveReservation(@PathVariable int screeningId, @PathVariable int userId, @Valid @RequestBody ReservationSaveDto reservationSaveDto) throws BadRequestException, ResourceNotFoundException;
 
     @DeleteMapping("/screenings/{screeningId}/reservation/{userId}")
     @Operation(description = "Delete user's reservation for screening", summary = "Delete user's reservation for screening")

@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Value
@@ -16,9 +18,12 @@ public class ReservationSaveDto {
     int user_reserved_id;
 */
     @Schema(description = "Reservation is paid", example = "true")
+    @NotBlank
     Boolean paid;
     @Schema(description = "Reservation is active", example = "true")
+    @NotBlank
     Boolean active;
     @Schema(description = "Reserved seats", example = "[1,2,3]")
+    @NotEmpty
     List<SeatReservedDto> reservedSeats;
 }

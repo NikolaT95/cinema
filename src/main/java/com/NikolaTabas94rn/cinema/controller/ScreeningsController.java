@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -29,11 +30,11 @@ public interface ScreeningsController {
 
     @PostMapping()
     @Operation(description = "Create screening", summary = "Create screening")
-    ScreeningDto saveScreening(@RequestBody ScreeningSaveDto saveDto) throws ResourceNotFoundException, UniqueViolationException, BadRequestException;
+    ScreeningDto saveScreening(@Valid @RequestBody ScreeningSaveDto saveDto) throws ResourceNotFoundException, UniqueViolationException, BadRequestException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update screening", summary = "Update screening")
-    ScreeningDto updateScreening(@PathVariable int id, @RequestBody ScreeningSaveDto saveDto)throws ResourceNotFoundException, UniqueViolationException;
+    ScreeningDto updateScreening(@PathVariable int id, @Valid @RequestBody ScreeningSaveDto saveDto)throws ResourceNotFoundException, UniqueViolationException;
 
     @DeleteMapping("/{id}")
     @Operation(description = "Delete screening", summary = "Delete screening")

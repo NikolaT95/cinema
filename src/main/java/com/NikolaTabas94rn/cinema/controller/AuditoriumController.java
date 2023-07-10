@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 @RequestMapping(path="/auditoriums", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface AuditoriumController {
@@ -26,11 +27,11 @@ public interface AuditoriumController {
 
     @PostMapping
     @Operation(description = "Create auditorium", summary = "Create auditorium")
-    AuditoriumDto saveAuditorium(@RequestBody AuditoriumSaveDto auditoriumSaveDto)throws UniqueViolationException;
+    AuditoriumDto saveAuditorium(@Valid @RequestBody AuditoriumSaveDto auditoriumSaveDto)throws UniqueViolationException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update auditorium", summary = "Update auditorium")
-    AuditoriumDto updateAuditorium(@PathVariable int id, @RequestBody AuditoriumSaveDto auditoriumSaveDto)throws UniqueViolationException, ResourceNotFoundException;
+    AuditoriumDto updateAuditorium(@PathVariable int id, @Valid @RequestBody AuditoriumSaveDto auditoriumSaveDto)throws UniqueViolationException, ResourceNotFoundException;
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

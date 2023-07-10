@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(path="/seats", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,11 +29,11 @@ public interface SeatController {
 
     @PostMapping()
     @Operation(description = "Create seat", summary = "Create seat")
-    SeatDto saveSeat(@RequestBody SeatSaveDto movie) throws UniqueViolationException, ResourceNotFoundException;
+    SeatDto saveSeat(@Valid @RequestBody SeatSaveDto movie) throws UniqueViolationException, ResourceNotFoundException;
 
     @PutMapping("/{id}")
     @Operation(description = "Update seat", summary = "Update seat")
-    SeatDto updateSeat(@PathVariable int id, @RequestBody SeatSaveDto movie)throws UniqueViolationException,ResourceNotFoundException;
+    SeatDto updateSeat(@PathVariable int id, @Valid @RequestBody SeatSaveDto movie)throws UniqueViolationException,ResourceNotFoundException;
 
     @DeleteMapping("/{id}")
     @Operation(description = "Delete seat", summary = "Delete seat")

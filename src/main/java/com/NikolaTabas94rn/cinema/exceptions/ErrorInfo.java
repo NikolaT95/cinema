@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Value;
 
+import java.util.Map;
+
 @Value
 @Builder
 public class ErrorInfo {
@@ -14,11 +16,15 @@ public class ErrorInfo {
     @Schema(description = "Additional message for error", example = "Movie with given `id` was not found")
     String message;
 
+    @Schema(description = "More detailed information about errors")
+    Map<String, String> details;
+
     public enum ErrorType {
         BAD_REQUEST,
         NOT_FOUND,
         UNKNOWN,
         UNIQUE_VIOLATION,
+        VALIDATION
     }
 
     public enum ResourceType {
