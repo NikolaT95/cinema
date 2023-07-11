@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -27,6 +28,8 @@ public class DbInitializer implements CommandLineRunner {
     private final SeatsRepository seatsRepository;
     private final SeatsReservedRepository seatsReservedRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public void run(String... args) throws Exception {
         if(!Arrays.asList(args).contains("--init-db")) {
@@ -34,11 +37,11 @@ public class DbInitializer implements CommandLineRunner {
         }
         UserEntity user1 = UserEntity.builder()
                 .email("pera.peric@example.com")
-                .password("pera")
+                .password(passwordEncoder.encode("pera"))
                 .build();
         UserEntity user2 = UserEntity.builder()
                 .email("milica@example.com")
-                .password("milica")
+                .password(passwordEncoder.encode("milica"))
                 .build();
 
         usersRepository.saveAll(Arrays.asList(user1, user2));
