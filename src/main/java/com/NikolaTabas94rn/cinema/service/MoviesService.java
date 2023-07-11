@@ -92,18 +92,4 @@ public class MoviesService {
                 .map(movieMapper::toDto);
     }
 
-    public int getAverageDuration() {
-        List<MovieEntity> movies = moviesRepository.findAll();
-        int totalDuration = 0;
-
-        for (MovieEntity movie : movies) {
-            totalDuration += movie.getDuration_min();
-        }
-
-        if (movies.size() > 0) {
-            return totalDuration / movies.size();
-        } else {
-            return 0;
-        }
-    }
 }

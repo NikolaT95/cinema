@@ -24,7 +24,10 @@ public class ErrorInfo {
         NOT_FOUND,
         UNKNOWN,
         UNIQUE_VIOLATION,
-        VALIDATION
+        VALIDATION,
+        AUTHENTICATION,
+        UNAUTHORIZED,
+
     }
 
     public enum ResourceType {
@@ -35,5 +38,6 @@ public class ErrorInfo {
         SEAT,
         SEATRESERVED,
         USER,
+        ACCESS,
     }
 }

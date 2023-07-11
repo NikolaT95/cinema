@@ -48,8 +48,4 @@ public class MoviesControllerImpl implements MoviesController {
         return moviesService.findByGenre(genre, movieSearchOption);
     }
 
-    @Override
-    public int getAverageMoviesDuration() {
-        return moviesService.getAverageDuration();
-    }
 }

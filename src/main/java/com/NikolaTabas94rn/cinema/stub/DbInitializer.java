@@ -35,6 +35,11 @@ public class DbInitializer implements CommandLineRunner {
         if(!Arrays.asList(args).contains("--init-db")) {
             return;
         }
+        UserEntity admin = UserEntity.builder()
+                .email("admin@example.com")
+                .password(passwordEncoder.encode("admin"))
+                .isAdmin(true)
+                .build();
         UserEntity user1 = UserEntity.builder()
                 .email("pera.peric@example.com")
                 .password(passwordEncoder.encode("pera"))
@@ -44,7 +49,7 @@ public class DbInitializer implements CommandLineRunner {
                 .password(passwordEncoder.encode("milica"))
                 .build();
 
-        usersRepository.saveAll(Arrays.asList(user1, user2));
+        usersRepository.saveAll(Arrays.asList(admin, user1, user2));
         log.info("Initialized users");
 
         MovieEntity movie1=MovieEntity.builder()

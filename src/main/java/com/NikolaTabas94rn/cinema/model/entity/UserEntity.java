@@ -22,6 +22,9 @@ public class UserEntity {
     @Column(nullable=false)
     private String password;
 
+    @Builder.Default
+    private boolean isAdmin = false;
+
     @OneToMany(mappedBy = "userReserved")
     @Singular
     private List<ReservationEntity> reservations;

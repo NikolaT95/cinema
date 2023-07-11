@@ -42,6 +42,4 @@ public interface MoviesController {
     @Operation(description = "Get movies by genre", summary = "Get movies by genre")
     Page<MovieDto> getMoviesByGenre(@PathVariable String genre,@ParameterObject MovieSearchOption movieSearchOption)throws ResourceNotFoundException;
 
-    @GetMapping("/avg")
-    int getAverageMoviesDuration();
 }
