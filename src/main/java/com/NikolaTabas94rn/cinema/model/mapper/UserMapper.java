@@ -18,7 +18,8 @@ public interface UserMapper {
     UserEntity toEntity(UserSaveDto userSaveDto);
 
     @Mappings({
-            @Mapping(source = "email", target = "username")
+            @Mapping(source = "email", target = "username"),
+            @Mapping(source = "admin", target = "authorities", qualifiedByName = "mapAuthorities")
     })
     CinemaUserDetails toUserDetails(UserEntity userEntity);
 }
