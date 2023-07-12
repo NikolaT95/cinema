@@ -5,18 +5,19 @@ import lombok.Builder;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Value
 @Builder
 @Schema(name = "SeatSave")
 public class SeatSaveDto {
     @Schema(description = "Seat row number", example = "1")
-    @NotBlank
+    @NotNull
     int row;
     @Schema(description = "Seat number", example = "1")
-    @NotBlank
+    @NotNull
     int number;
     @Schema(description = "Id of auditorium", example = "1")
-    @NotBlank
+    @NotNull
     int auditorium_id;
 }

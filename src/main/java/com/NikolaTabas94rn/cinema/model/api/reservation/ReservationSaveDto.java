@@ -8,6 +8,7 @@ import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Value
@@ -18,10 +19,10 @@ public class ReservationSaveDto {
     int user_reserved_id;
 */
     @Schema(description = "Reservation is paid", example = "true")
-    @NotBlank
+    @NotNull
     Boolean paid;
     @Schema(description = "Reservation is active", example = "true")
-    @NotBlank
+    @NotNull
     Boolean active;
     @Schema(description = "Reserved seats", example = "[1,2,3]")
     @NotEmpty
