@@ -6,6 +6,7 @@ import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Value
 @Builder
@@ -23,6 +24,6 @@ public class MovieSaveDto {
     @Schema(description = "Movie description", example = " ")
     String description;
     @Schema(description = "Movie duration in minutes", example = "120")
-    @NotEmpty
+    @NotNull
     int duration_min;
 }

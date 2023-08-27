@@ -6,6 +6,7 @@ import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Value
@@ -16,6 +17,6 @@ public class AuditoriumSaveDto {
     @NotBlank
     String name;
     @Schema(description = "number of seats in auditorium", example = "20")
-    @NotEmpty
+    @NotNull
     int seats_no;
 }

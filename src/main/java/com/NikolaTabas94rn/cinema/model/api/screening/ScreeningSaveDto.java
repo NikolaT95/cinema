@@ -19,6 +19,6 @@ public class ScreeningSaveDto {
     @NotNull
     int auditorium_id;
     @Schema(description = "Screening start time", example = "2023-06-29 12:34:56")
-    @NotEmpty
+    @NotNull
     Timestamp screeningStart;
 }
