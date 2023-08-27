@@ -57,17 +57,29 @@ public class ReservationService {
     public ReservationDto save(int screeningId, int userId, ReservationSaveDto reservationSaveDto) throws ResourceNotFoundException, BadRequestException {
         UserEntity user=getUser(userId);
         ScreeningEntity screening=getScreening(screeningId);
+        AuditoriumEntity auditorium=screening.getAuditorium();
 
         if(reservationsRepository.findByScreeningAndUserReserved(screening,user).isPresent()) {
             throw new BadRequestException("User with id " + userId + " has already made reservation for screening with id " + screeningId);
+        }
+        for(SeatReservedDto seatReservedDto: reservationSaveDto.getReservedSeats()){
+            if(!seatsRepository.findById(seatReservedDto.getSeat_id()).isPresent()){
+                throw  new BadRequestException("seat with id "+seatReservedDto.getSeat_id()+" doesn't exist");
+            }
+            SeatEntity seat=getSeat(seatReservedDto.getSeat_id());
+            if(!seat.getAuditorium().equals(auditorium)){
+                throw  new BadRequestException("seat with id "+seat.getId()+" is from wrong auditorium");
+            }
+
+            if(seatsReservedRepository.findBySeatAndScreening(seat,screening).isPresent()){
+                throw new BadRequestException("seat with id " + seatReservedDto.getSeat_id() + " is taken");
+            }
         }
 
         ReservationEntity reservationEntity=reservationMapper.toEntity(reservationSaveDto);
         reservationEntity.setUserReserved(user);
         reservationEntity.setScreening(screening);
         reservationEntity = reservationsRepository.save(reservationEntity);
-
-
 
         for(SeatReservedDto seatReservedDto: reservationSaveDto.getReservedSeats()){
             SeatReservedEntity seatReservedEntity=new SeatReservedEntity();
