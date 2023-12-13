@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-//cisto
+
 @RequestMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface UsersController {
     @GetMapping
