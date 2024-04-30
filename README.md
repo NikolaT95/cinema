@@ -1,7 +1,7 @@
 Projekat iz predmeta Razvoj veb aplikacija (master 1. godina)
 
 
-pokretanje za Intellij comunity edition konfiguracija
+pokretanje za Intellij community edition konfiguracija
 add new configuration - maven
 
 RUn
