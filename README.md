@@ -1,5 +1,7 @@
-# cinema
-pokretanje konfiguracija
+Projekat iz predmeta Razvoj veb aplikacija (master 1. godina)
+
+
+pokretanje za Intellij comunity edition konfiguracija
 add new configuration - maven
 
 RUn
