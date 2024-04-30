@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://${CINEMA_DB_HOST:localhost}:3306/${CINEMA_DB:cinema}
-    username: ${CINEMA_DB_USERNAME:sa}
-    password: ${CINEMA_DB_PASSWORD:password}
+    username: ${CINEMA_DB_USERNAME:root}
+    password: ${CINEMA_DB_PASSWORD:}
   jpa:
     hibernate:
       ddl-auto: update # careful in production!!!
